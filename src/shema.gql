@@ -6,5 +6,7 @@ type Query {
   """Returns a smile face"""
   ShowSmileFace: String!
   RandomNumber: Float!
-  RandomNumberFromZeroTo: Int!
+
+  """From zero to argumento TO"""
+  RandomNumberFromZeroTo(to: Int): Int!
 }
