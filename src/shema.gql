@@ -3,5 +3,8 @@
 # ------------------------------------------------------
 
 type Query {
-  helloWorl: String!
+  """Returns a smile face"""
+  ShowSmileFace: String!
+  RandomNumber: Float!
+  RandomNumberFromZeroTo: Int!
 }
