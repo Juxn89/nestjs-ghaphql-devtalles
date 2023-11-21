@@ -16,4 +16,5 @@ type Query {
   """From zero to argumento TO"""
   RandomNumberFromZeroTo(to: Int): Int!
   todos: [Todo!]!
+  todo(id: Int!): Todo!
 }
