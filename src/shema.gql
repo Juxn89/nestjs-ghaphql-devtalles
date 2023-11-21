@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Todo {
+  id: Int!
+  description: String!
+  done: Boolean!
+}
+
 type Query {
   """Returns a smile face"""
   ShowSmileFace: String!
@@ -9,4 +15,5 @@ type Query {
 
   """From zero to argumento TO"""
   RandomNumberFromZeroTo(to: Int): Int!
+  todos: [Todo!]!
 }
