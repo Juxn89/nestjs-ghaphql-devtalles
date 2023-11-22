@@ -21,9 +21,19 @@ type Query {
 
 type Mutation {
   CreateToDo(createTodoInput: CreateTodoInput!): Todo!
+  UpdateToDo(updateToDoInput: UpdateTodoInput!): Todo!
+  removeToDo(id: Int!): Boolean!
 }
 
 input CreateTodoInput {
   """What needs to be done"""
   description: String!
+}
+
+input UpdateTodoInput {
+  id: Int!
+
+  """What needs to be done"""
+  description: String
+  done: Boolean
 }

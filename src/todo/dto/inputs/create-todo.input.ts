@@ -7,7 +7,7 @@ export class CreateTodoInput {
 	@Field( () => String, { description: 'What needs to be done' } )
 	@IsString()
 	@IsNotEmpty()
-	@MaxLength()
+	@MaxLength(20)
 	description: string
 
 }
