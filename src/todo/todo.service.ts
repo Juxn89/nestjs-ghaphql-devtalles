@@ -9,7 +9,20 @@ export class TodoService {
 		{ id: 1, description: 'Soul stone', done: false },
 		{ id: 2, description: 'Power stone', done: true },
 		{ id: 3, description: 'Space stone', done: false },
+		{ id: 4, description: 'Time stone', done: true },
 	]
+
+	get totalToDos() {
+		return this.todos.length
+	}
+
+	get totalCompletedTodo() {
+		return this.findAll({ status: true }).length;
+	}
+
+	get totalPendingTodo() {
+		return this.findAll({ status: false }).length;
+	}
 
 	findAll(statusArgs: StatusArgs): Todo[] {
 		const { status } = statusArgs

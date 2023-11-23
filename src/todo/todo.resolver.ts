@@ -43,4 +43,19 @@ export class TodoResolver {
 	) {
 		return this.todoService.remove(id);
 	}
+
+	@Query( () => Int, { name: 'totalToDos' } )
+	totalToDos() {
+		return this.todoService.totalToDos
+	}
+
+	@Query( () => Int, { name: 'completedToDos' } )
+	completedToDos() {
+		return this.todoService.totalCompletedTodo
+	}
+
+	@Query( () => Int, { name: 'penddingToDos' } )
+	pendingToDos() {
+		return this.todoService.totalPendingTodo
+	}
 }
