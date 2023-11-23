@@ -1,0 +1,7 @@
+root = true
+
+[src/**.ts]
+charset = utf-8
+indent_size = 2
+indent_style = tab
+tab_width = 2
