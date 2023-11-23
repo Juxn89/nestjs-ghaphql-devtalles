@@ -8,6 +8,14 @@ type Todo {
   done: Boolean!
 }
 
+"""ToDo quick aggregations"""
+type AggregationsType {
+  total: Int!
+  pending: Int!
+  completed: Int!
+  totalCompleted: Int! @deprecated(reason: "Must use completed instead")
+}
+
 type Query {
   """Returns a smile face"""
   ShowSmileFace: String!
@@ -20,6 +28,7 @@ type Query {
   totalToDos: Int!
   completedToDos: Int!
   penddingToDos: Int!
+  aggregations: AggregationsType!
 }
 
 type Mutation {
