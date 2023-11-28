@@ -1,0 +1,1 @@
+export { SingupInput } from "./singup.input";
