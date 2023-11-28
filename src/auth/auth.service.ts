@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 
 import { AuthResponse } from './types';
-import { SingupInput } from './dto/inputs';
+import { LoginInput, SingupInput } from './dto/inputs';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -17,6 +18,22 @@ export class AuthService {
 		const token = 'MY_TOKEN';
 
 		return {
+			token,
+			user
+		}
+	}
+
+	async login( loginInput: LoginInput ): Promise<AuthResponse> {
+		const { email, password } = loginInput
+		const user = await this.usersService.findOneByEmail(email);
+
+		if(!bcrypt.compareSync(password, user.password)) {
+			throw new BadRequestException(`User not found`)
+		}
+
+		const token = 'MY_TOKEN'
+
+		return {  
 			token,
 			user
 		}
