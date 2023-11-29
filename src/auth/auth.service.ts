@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 import { AuthResponse } from './types';
@@ -9,18 +10,16 @@ import { UsersService } from '../users/users.service';
 export class AuthService {
 	
 	constructor(
-		private readonly usersService: UsersService
+		private readonly usersService: UsersService,
+		private readonly jwtService: JwtService
 	) {}
 
 	async singup(singupInput: SingupInput): Promise<AuthResponse> {
 		const user = await this.usersService.create(singupInput);
 
-		const token = 'MY_TOKEN';
+		const token = this.getJwtToken(user.id)
 
-		return {
-			token,
-			user
-		}
+		return { token, user }
 	}
 
 	async login( loginInput: LoginInput ): Promise<AuthResponse> {
@@ -31,11 +30,12 @@ export class AuthService {
 			throw new BadRequestException(`User not found`)
 		}
 
-		const token = 'MY_TOKEN'
+		const token = this.getJwtToken(user.id)
 
-		return {  
-			token,
-			user
-		}
+		return { token, user }
+	}
+
+	private getJwtToken(userId): string {
+		return this.jwtService.sign({ id: userId })
 	}
 }
