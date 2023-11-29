@@ -52,6 +52,19 @@ export class UsersService {
 		}
   }
 
+  async findOneById(userId: string): Promise<User> {
+		try {
+			const user = await this.userRepository.findOneByOrFail({ id: userId })
+			return user
+			
+		} catch (error) {
+			this.handleDBErrors({
+				code: 'BE-001',
+				detail: `${ userId } no found`
+			})
+		}
+  }
+
   update(id: number, updateUserInput: UpdateUserInput) {
     return `This action updates a #${id} user`;
   }

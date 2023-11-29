@@ -1,8 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 import { AuthResponse } from './types';
+import { User } from '../users/entities/user.entity';
 import { LoginInput, SingupInput } from './dto/inputs';
 import { UsersService } from '../users/users.service';
 
@@ -33,6 +34,21 @@ export class AuthService {
 		const token = this.getJwtToken(user.id)
 
 		return { token, user }
+	}
+
+	revalidate(): AuthResponse {
+		throw new Error(`Not implemented yet`)
+	}
+
+	async validateUser(userId: string): Promise<User> {
+		const user = await this.usersService.findOneById(userId);
+
+		if(!user.isActive)
+			throw new UnauthorizedException(`User is inactive, reach out to admin`)
+
+		delete user.password
+		
+		return user
 	}
 
 	private getJwtToken(userId): string {
