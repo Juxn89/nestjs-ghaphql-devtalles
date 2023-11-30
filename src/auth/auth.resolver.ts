@@ -7,6 +7,7 @@ import { LoginInput, SingupInput } from './dto/inputs';
 import { JwtAuthGuards } from './guards/jwt-auth.guards';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from '../users/entities/user.entity';
+import { ValidRoles } from './enums/valid-roles.enums';
 
 @Resolver()
 export class AuthResolver {
@@ -29,7 +30,7 @@ export class AuthResolver {
 	@Query( () => AuthResponse, { name: 'revalidate' })
 	@UseGuards( JwtAuthGuards )
 	revalidateToken(
-		@CurrentUser() user: User
+		@CurrentUser([ValidRoles.admin]) user: User
 	): AuthResponse {
 		return this.authService.revalidate(user)
 	}
