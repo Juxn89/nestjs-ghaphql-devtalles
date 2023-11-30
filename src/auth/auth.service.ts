@@ -36,8 +36,11 @@ export class AuthService {
 		return { token, user }
 	}
 
-	revalidate(): AuthResponse {
-		throw new Error(`Not implemented yet`)
+	revalidate(user: User): AuthResponse {
+		const { id } = user
+		const token = this.getJwtToken(id)
+
+		return { user, token }
 	}
 
 	async validateUser(userId: string): Promise<User> {

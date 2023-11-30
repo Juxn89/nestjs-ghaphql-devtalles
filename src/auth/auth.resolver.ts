@@ -5,6 +5,8 @@ import { AuthResponse } from './types';
 import { AuthService } from './auth.service';
 import { LoginInput, SingupInput } from './dto/inputs';
 import { JwtAuthGuards } from './guards/jwt-auth.guards';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { User } from '../users/entities/user.entity';
 
 @Resolver()
 export class AuthResolver {
@@ -26,7 +28,9 @@ export class AuthResolver {
 
 	@Query( () => AuthResponse, { name: 'revalidate' })
 	@UseGuards( JwtAuthGuards )
-	revalidate(): AuthResponse {
-		return this.authService.revalidate()
+	revalidateToken(
+		@CurrentUser() user: User
+	): AuthResponse {
+		return this.authService.revalidate(user)
 	}
 }
