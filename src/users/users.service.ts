@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt'
 import { UpdateUserInput } from './dto/';
 import { User } from './entities/user.entity';
 import { SingupInput } from '../auth/dto/inputs/singup.input';
+import { ValidRoles } from '../auth/enums/valid-roles.enums';
 
 @Injectable()
 export class UsersService {
@@ -31,8 +32,15 @@ export class UsersService {
 		}
   }
 
-  async findAll(): Promise<User[]> {
-    return [];
+  async findAll(roles: ValidRoles[]): Promise<User[]> {
+		if(roles.length === 0)
+    	return this.userRepository.find()
+
+		return this.userRepository
+						.createQueryBuilder()
+						.andWhere('ARRAY[roles] && ARRAY[:...roles]')
+						.setParameter('roles', roles)
+						.getMany()
   }
 
 	async findOne(id: string): Promise<User> {
