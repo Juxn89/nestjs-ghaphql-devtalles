@@ -14,10 +14,10 @@ export class User {
 	fullName: string;
 	
 	@Column({ unique: true })
+	@Field(() => String)
 	email: string;
 	
 	@Column()
-	@Field(() => String)
 	password: string;
 	
 	@Column( { type: 'text', array: true, default: ['user'] } )

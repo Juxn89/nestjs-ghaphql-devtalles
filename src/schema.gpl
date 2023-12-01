@@ -12,7 +12,7 @@ type Item {
 type User {
   id: ID!
   fullName: String!
-  password: String!
+  email: String!
   roles: [String!]!
   isActive: Boolean!
 }

@@ -3,7 +3,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { ValidRoles } from '../enums/valid-roles.enums';
 import { User } from 'src/users/entities/user.entity';
 
-export const CurrentUser = createParamDecorator( () => {
+export const CurrentUser = createParamDecorator(
 	(roles: ValidRoles[] = [], context: ExecutionContext) => {
 		const graphqlContext = GqlExecutionContext.create(context)
 		const user: User = graphqlContext.getContext().req.user
@@ -22,4 +22,4 @@ export const CurrentUser = createParamDecorator( () => {
 
 		throw new ForbiddenException(`User ${ user.fullName } dosen't have access to this resource`)
 	}
-})
+)
