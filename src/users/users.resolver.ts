@@ -31,10 +31,10 @@ export class UsersResolver {
     return this.usersService.findOne(id);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { name: 'blockUser' })
   blockUser(
 		@Args('id', { type: () => ID }, ParseUUIDPipe) id: string,
-		@CurrentUser([ValidRoles.admin]) user: User
+		@CurrentUser([ValidRoles.superAdmin, ValidRoles.admin]) user: User
 	): Promise<User> {
     return this.usersService.block(id);
   }
