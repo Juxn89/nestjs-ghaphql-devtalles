@@ -79,8 +79,22 @@ export class UsersService {
 		}
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserInput: UpdateUserInput, updatedBy: User): Promise<User> {
+		try {
+			const user = await this.userRepository.preload({
+				...updateUserInput,
+				id
+			});
+
+			user.lastUpdateBy = updatedBy;
+			
+			if(updateUserInput.password)
+				user.password = bcrypt.hashSync(updateUserInput.password, 10);
+
+			return this.userRepository.save(user)
+		} catch (error) {
+			this.handleDBErrors(error)
+		}
   }
 
   async block(id: string, user: User): Promise<User> {
