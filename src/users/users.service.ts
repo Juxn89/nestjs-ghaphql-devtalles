@@ -35,7 +35,7 @@ export class UsersService {
   async findAll(roles: ValidRoles[]): Promise<User[]> {
 		if(roles.length === 0)
     	return this.userRepository.find({ 
-				relations: { lastUpdateBy: true } 
+				relations: { lastUpdateBy: true, items: true } 
 			})
 
 		return this.userRepository
