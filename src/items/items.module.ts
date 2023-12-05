@@ -9,6 +9,9 @@ import { ItemsResolver } from './items.resolver';
   providers: [ItemsResolver, ItemsService],
 	imports: [
 		TypeOrmModule.forFeature([ Item ])
+	],
+	exports: [
+		ItemsService
 	]
 })
 export class ItemsModule {}
