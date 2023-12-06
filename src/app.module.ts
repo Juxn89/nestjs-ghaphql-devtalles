@@ -9,6 +9,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { ItemsModule } from './items/items.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { AuthModule } from './auth/auth.module';
 		}),
 		ItemsModule,
 		UsersModule,
-		AuthModule
+		AuthModule,
+		SeedModule
 	],
   controllers: [],
   providers: [],

@@ -11,7 +11,8 @@ import { ItemsResolver } from './items.resolver';
 		TypeOrmModule.forFeature([ Item ])
 	],
 	exports: [
-		ItemsService
+		ItemsService,
+		TypeOrmModule
 	]
 })
 export class ItemsModule {}

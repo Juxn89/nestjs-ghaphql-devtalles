@@ -11,7 +11,8 @@ export class CreateItemInput {
 	
 	@Field( () => Float )
 	@IsPositive()
-	quantity: number;
+	@IsOptional()
+	quantity?: number = 1;
 	
 	@Field( () => String, { nullable: true } )
 	@IsString()

@@ -49,17 +49,20 @@ type Mutation {
   blockUser(id: ID!): User!
   singup(singupInput: SingupInput!): AuthResponse!
   login(loginInput: LoginInput!): AuthResponse!
+
+  """Execute database build"""
+  executeSeed: Boolean!
 }
 
 input CreateItemInput {
   name: String!
-  quantity: Float!
+  quantity: Float! = 1
   quantityUnit: String
 }
 
 input UpdateItemInput {
   name: String
-  quantity: Float
+  quantity: Float = 1
   quantityUnit: String
   id: ID!
 }
