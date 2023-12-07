@@ -22,7 +22,7 @@ export class SeedService {
 	) {
 		this.isProducction = configService.get('STATE') === 'prod'
 	}
-
+ 
 	async executeSeed(): Promise<Boolean> {
 		if(this.isProducction)
 			throw new UnauthorizedException('We cannot run SEED on Prod')
@@ -63,6 +63,8 @@ export class SeedService {
 		for (const item of SEED_ITEMS) {
 			const randomIndex = Math.floor( Math.random() * users.length )
 			const user = users[randomIndex]
+
+			item['quantity'] = Math.floor( Math.random() * 10 );
 
 			itemsPromises.push(this.itemsService.create(item, user))
 		}

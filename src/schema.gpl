@@ -27,7 +27,7 @@ type AuthResponse {
 }
 
 type Query {
-  items: [Item!]!
+  items(offset: Int = 0, limit: Int = 10): [Item!]!
   item(id: ID!): Item!
   users(roles: [ValidRoles!] = []): [User!]!
   user(id: ID!): User!
@@ -56,13 +56,13 @@ type Mutation {
 
 input CreateItemInput {
   name: String!
-  quantity: Float! = 1
+  quantity: Float!
   quantityUnit: String
 }
 
 input UpdateItemInput {
   name: String
-  quantity: Float = 1
+  quantity: Float
   quantityUnit: String
   id: ID!
 }
