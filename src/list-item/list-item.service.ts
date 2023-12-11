@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 
 import { CreateListItemInput, UpdateListItemInput } from './dto/';
 import { ListItem } from './entities/list-item.entity';
+import { List } from 'src/lists/entities/list.entity';
+import { PaginationArgs, SearchArgs } from '../common/dto/args/';
 
 @Injectable()
 export class ListItemService {
@@ -24,8 +26,21 @@ export class ListItemService {
 	 	return this.listItemRepository.save(listItem)
   }
 
-  findAll() {
-    return `This action returns all listItem`;
+  async findAll(list: List, paginationArgs: PaginationArgs, searchArgs: SearchArgs): Promise<ListItem[]> {
+		const { limit, offset } = paginationArgs
+		const { search } = searchArgs
+
+		const queryBuilder = this.listItemRepository.createQueryBuilder('listItem')
+			.innerJoin('listItem.item', 'item')
+			.take(limit)
+			.skip(offset)
+			.where(`"listId" = :listId`, { listId: list.id })
+
+		if(search) {
+			queryBuilder.andWhere('LOWER(item.name) like :name', { name: `%${search.toLowerCase()}%` })
+		}
+
+		return queryBuilder.getMany();
   }
 
   findOne(id: number) {
@@ -39,4 +54,16 @@ export class ListItemService {
   remove(id: number) {
     return `This action removes a #${id} listItem`;
   }
+
+	async getTotalListItemByList(list: List): Promise<number> {
+		const total = await this.listItemRepository.count({
+			where: {
+				list: {
+					id: list.id
+				}
+			}
+		})
+
+		return total;
+	}
 }

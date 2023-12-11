@@ -32,11 +32,11 @@ export class ItemsService {
 			.skip(offset)
 			.where(`"userId" = :userId`, { userId: user.id })
 
-			if(search) {
-				queryBuilder.andWhere('LOWER(name) like :name', { name: `%${search.toLowerCase()}%` })
-			}
+		if(search) {
+			queryBuilder.andWhere('LOWER(name) like :name', { name: `%${search.toLowerCase()}%` })
+		}
 
-	return queryBuilder.getMany();
+		return queryBuilder.getMany();
 	}
 
 	async findOne(id: string, user: User): Promise<Item> {

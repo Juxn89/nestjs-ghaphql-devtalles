@@ -24,7 +24,8 @@ export class ListItemResolver {
 
   @Query(() => [ListItem], { name: 'listItem' })
   findAll() {
-    return this.listItemService.findAll();
+    // return this.listItemService.findAll();
+		throw new Error()
   }
 
   @Query(() => ListItem, { name: 'listItem' })

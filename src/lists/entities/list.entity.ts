@@ -20,7 +20,7 @@ export class List {
 	@Index('user-id-list-index')
 	user: User;
 
-	@Field( () => [ListItem] )
+	// @Field( () => [ListItem] )
 	@OneToMany( () => ListItem, (listItem) => listItem.list, { lazy: true } )
 	listItem: ListItem
 }
