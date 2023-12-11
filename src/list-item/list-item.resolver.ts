@@ -1,15 +1,24 @@
+import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+
 import { ListItemService } from './list-item.service';
 import { ListItem } from './entities/list-item.entity';
 import { CreateListItemInput } from './dto/create-list-item.input';
 import { UpdateListItemInput } from './dto/update-list-item.input';
+import { JwtAuthGuards } from 'src/auth/guards/jwt-auth.guards';
 
 @Resolver(() => ListItem)
+@UseGuards( JwtAuthGuards )
 export class ListItemResolver {
-  constructor(private readonly listItemService: ListItemService) {}
+	
+  constructor(
+		private readonly listItemService: ListItemService
+	) {}
 
   @Mutation(() => ListItem)
-  createListItem(@Args('createListItemInput') createListItemInput: CreateListItemInput) {
+  createListItem(
+		@Args('createListItemInput') createListItemInput: CreateListItemInput
+	): Promise<ListItem> {
     return this.listItemService.create(createListItemInput);
   }
 
