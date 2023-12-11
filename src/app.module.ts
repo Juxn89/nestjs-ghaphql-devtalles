@@ -6,12 +6,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
-import { ItemsModule } from './items/items.module';
-import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { SeedModule } from './seed/seed.module';
 import { CommonModule } from './common/common.module';
+import { ItemsModule } from './items/items.module';
+import { ListItemModule } from './list-item/list-item.module';
 import { ListsModule } from './lists/lists.module';
+import { SeedModule } from './seed/seed.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import { ListsModule } from './lists/lists.module';
 		AuthModule,
 		SeedModule,
 		CommonModule,
-		ListsModule
+		ListsModule,
+		ListItemModule
 	],
   controllers: [],
   providers: [],
