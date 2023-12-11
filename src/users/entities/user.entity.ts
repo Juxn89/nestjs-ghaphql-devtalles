@@ -35,6 +35,6 @@ export class User {
 	lastUpdateBy?: User
 
 	@OneToMany( () => Item, (item) => item.user )
-	@Field( () => [Item] )
+	// @Field( () => [Item] )
 	items: Item[]
 }
