@@ -20,6 +20,7 @@ export class ListItem {
 	@Column( { type: 'boolean', default: false } )
 	completed: boolean;
 
+	@Field( () => List )
 	@ManyToOne( () => List, (list) => list.listItem, { lazy: true } )
 	list: List;
 
